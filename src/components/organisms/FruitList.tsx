@@ -14,6 +14,7 @@ export const FruitList: React.FC = () => {
   useEffect(() => {
     fetchFruits();
   }, []);
+
   return (
     <>
       <h1>Fruit List</h1>
