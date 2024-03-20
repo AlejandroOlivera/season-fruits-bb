@@ -1,16 +1,8 @@
-import { fetchAllFruits } from '../../api';
+import { fetchAllFruits } from '../../api/api';
 import { Fruit } from '@/interface/Fruit.interface';
+import { assignImageToFruit } from '@/utils/assignImageToFruit';
+
 import { create } from 'zustand';
-
-const fruitImagesConfig: Record<string, string> = {
-  Apple: 'Apple.webp',
-};
-
-const assignImageToFruit = (fruit: Fruit): Fruit => {
-  const imageName = fruitImagesConfig[fruit.name] || 'not-available.webp';
-  const imagePath = `/${imageName}`;
-  return { ...fruit, image: imagePath };
-};
 
 interface FruitStore {
   fruits: Fruit[];
