@@ -4,7 +4,7 @@ interface TypographyProps {
   /**
    * The text to be displayed
    */
-  text: string;
+  text: string | number;
   /**
    * The size of the text
    */
@@ -25,7 +25,7 @@ interface TypographyProps {
  */
 export const Typography: React.FC<TypographyProps> = ({
   text,
-  color,
+  color = '#2C2C2C',
   size,
   fontWeight,
 }) => {

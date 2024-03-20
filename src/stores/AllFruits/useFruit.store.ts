@@ -4,6 +4,9 @@ import { create } from 'zustand';
 
 const fruitImagesConfig: Record<string, string> = {
   Apple: 'Apple.webp',
+  Annona: 'Annona.webp',
+  Banana: 'Banana.avif',
+  Blackberry: 'Blackberry.webp',
 };
 
 const assignImageToFruit = (fruit: Fruit): Fruit => {

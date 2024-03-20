@@ -1,13 +1,15 @@
 import { useFavoriteStore } from '@/stores';
 import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
 import { useEffect } from 'react';
+import { FruitCard } from '../molecules/FruitCard/FruitCard';
+import './fruitList.scss';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
   const fruits = useFruitStore((state) => state.fruits);
   console.log('🚀 ~ fruits:', fruits);
 
-  const { addLikedProduct, likedProducts } = useFavoriteStore();
+  // const { addLikedProduct, likedProducts } = useFavoriteStore();
 
   useEffect(() => {
     fetchFruits();
@@ -15,17 +17,21 @@ export const FruitList: React.FC = () => {
   return (
     <>
       <h1>Fruit List</h1>
-      <ul>
+
+      <div className="fruit-cards-container">
         {fruits.map((fruit) => (
-          <li key={fruit.name}>
-            <img src={fruit.image} alt={fruit.name} />
-            <div>{fruit.name}</div>
-            <button onClick={() => addLikedProduct(fruit.name)}>
-              {likedProducts.includes(fruit.name) ? 'Dislike' : 'Like'}
-            </button>
-          </li>
+          <FruitCard
+            key={fruit.id}
+            family={fruit.family}
+            genus={fruit.genus}
+            id={fruit.id}
+            name={fruit.name}
+            nutritions={fruit.nutritions}
+            order={fruit.order}
+            image={fruit.image}
+          />
         ))}
-      </ul>
+      </div>
     </>
   );
 };
