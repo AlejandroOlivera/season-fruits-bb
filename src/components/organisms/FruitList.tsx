@@ -3,6 +3,7 @@ import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
 import { useEffect } from 'react';
 import { FruitCard } from '../molecules/FruitCard/FruitCard';
 import './fruitList.scss';
+import { Typography } from '../atoms';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
@@ -17,7 +18,9 @@ export const FruitList: React.FC = () => {
 
   return (
     <>
-      <h1>Fruit List</h1>
+      <Typography text="Season fruits" size="extra-large" fontWeight={700} />
+
+      <Typography text="the most wonderful fruits" size="medium" />
 
       <div className="fruit-cards-container">
         {fruits.map((fruit) => (

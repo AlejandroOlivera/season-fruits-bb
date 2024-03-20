@@ -8,7 +8,7 @@ interface TypographyProps {
   /**
    * The size of the text
    */
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'extra-large';
   /**
    * Optional color of the text
    */
