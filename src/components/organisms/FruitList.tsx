@@ -1,4 +1,3 @@
-import { useFavoriteStore } from '@/stores';
 import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
 import { useEffect } from 'react';
 import { FruitCard } from '../molecules/FruitCard/FruitCard';
@@ -8,13 +7,10 @@ import { Typography } from '../atoms';
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
   const fruits = useFruitStore((state) => state.fruits);
-  console.log('🚀 ~ fruits:', fruits);
-
-  // const { addLikedProduct, likedProducts } = useFavoriteStore();
 
   useEffect(() => {
     fetchFruits();
-  }, []);
+  }, [fetchFruits]);
 
   return (
     <>
