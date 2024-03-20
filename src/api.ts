@@ -10,7 +10,7 @@ export const fetchAllFruits = async () => {
         'Access-Control-Allow-Origin': '*',
       },
     });
-    return response;
+    return response.data;
   } catch (error) {
     console.error('Error fetching fruits:', error);
     throw error;

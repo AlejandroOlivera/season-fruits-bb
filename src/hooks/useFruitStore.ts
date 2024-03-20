@@ -11,7 +11,7 @@ export const useFruitStore = create<FruitStore>((set) => ({
   fruits: [],
   fetchFruits: async () => {
     try {
-      const fruits = await fetchAllFruits();
+      const fruits: Fruit[] = await fetchAllFruits();
       set({ fruits });
     } catch (error) {
       console.log(error);
