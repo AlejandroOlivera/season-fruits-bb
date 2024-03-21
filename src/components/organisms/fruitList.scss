@@ -1,23 +1,28 @@
 .fruit-cards-container {
+  width: 1011px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 24px;
 
   > .fruit-card {
     width: 100%;
-    max-width: 317px;
-    margin-bottom: 20px;
+    max-width: calc(33.33% - 20px); /* Cambiado de 25% a calc(33.33% - 20px) */
 
-    @media (min-width: 576px) {
-      width: calc(50% - 20px);
+    @media (max-width: 992px) {
+      max-width: calc(50% - 20px); /* Ajuste para dispositivos más pequeños */
     }
 
-    @media (min-width: 768px) {
-      width: calc(33.33% - 20px);
+    @media (max-width: 576px) {
+      max-width: 100%; /* Ajuste para dispositivos aún más pequeños */
     }
+  }
 
-    @media (min-width: 992px) {
-      width: calc(25% - 20px);
-    }
+  @media (max-width: 992px) {
+    width: calc(50% - 20px); /* Ajuste para dispositivos más pequeños */
+  }
+
+  @media (max-width: 576px) {
+    width: 100%; /* Ajuste para dispositivos aún más pequeños */
   }
 }

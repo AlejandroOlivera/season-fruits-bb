@@ -1,7 +1,7 @@
 {
   "name": "season-fruits",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,10 @@
     "coverage": "vitest run --coverage",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "version:major": "npm version major",
+    "version:minor": "npm version minor",
+    "version:patch": "npm version patch"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
