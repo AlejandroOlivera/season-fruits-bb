@@ -26,6 +26,7 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
   perPage: 8,
   displayedFruits: [],
   isSortedAscending: true,
+
   fetchFruits: async () => {
     try {
       const fruits = await fetchAllFruits();
@@ -69,6 +70,7 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
 
   handleSeeMore: () => {
     const { fruits, page, perPage, displayedFruits } = get();
+
     if (fruits.length === displayedFruits.length) return;
     const newPerPage = perPage === 8 ? 4 : perPage;
     const newPage = page + 1;

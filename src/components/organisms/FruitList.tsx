@@ -27,8 +27,8 @@ export const FruitList: React.FC = () => {
   };
 
   return (
-    <div className="">
-      <div className="d-flex gap-3 mb-2">
+    <div className="fruit-list-container">
+      <div className="buttons-container">
         <Select
           value={selectedFilter}
           options={[

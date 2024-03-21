@@ -1,8 +1,9 @@
 import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
 import './nutricionCars.scss';
 import { Typography } from '@/components/atoms';
+import { memo } from 'react';
 
-export const NutricionCard: React.FC = () => {
+export const NutricionCard: React.FC = memo(() => {
   const generalInformation = useFruitStore((state) => state.getNutritionSum());
 
   return (
@@ -112,4 +113,4 @@ export const NutricionCard: React.FC = () => {
       </div>
     </>
   );
-};
+});

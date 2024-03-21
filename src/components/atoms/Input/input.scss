@@ -8,17 +8,14 @@
   width: 165px;
   height: 38px;
   padding: 8px 25px 8px 25px;
-  gap: 10px;
   border-radius: 100px;
-  border: 1px 0px 0px 0px;
-  opacity: 0px;
-  color: #252525;
+  color: #000000;
 }
 
 .input-icon {
   position: absolute;
   right: 10px;
   top: 50%;
-  transform: translateY(-50%);
+  top: calc(50% - 7px);
   cursor: pointer;
 }
