@@ -1,18 +1,28 @@
-.container-search {
+.search-container {
   position: relative;
+  max-width: 165px;
+
+  // Responsive behavior
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
-.input {
+.search-input {
   background-color: #ffffff;
   border: 1px solid #252525;
-  width: 165px;
-  height: 38px;
-  padding: 8px 25px 8px 25px;
+  padding: 8px 25px 8px 10px; /* Adjust padding for icon */
   border-radius: 100px;
   color: #000000;
+  width: 165px; /* Adjust for responsiveness */
+
+  // Responsive behavior
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
-.input-icon {
+.search-icon {
   position: absolute;
   right: 10px;
   top: 50%;
