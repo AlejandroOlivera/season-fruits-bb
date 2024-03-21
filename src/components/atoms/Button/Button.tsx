@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import './button.css';
 
 interface ButtonProps {
@@ -26,23 +27,28 @@ interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({
+export const Button: React.FC<ButtonProps> = ({
   primary = false,
   size = 'medium',
   backgroundColor,
   label,
+  onClick,
   ...props
-}: ButtonProps) => {
-  const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
+}) => {
+  const handleClick = useCallback(() => {
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick]);
+
+  const buttonClasses = `button ${primary ? 'button__primary' : 'button__secondary'} button--${size}`;
+
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' ',
-      )}
+      className={buttonClasses}
       style={{ backgroundColor }}
+      onClick={handleClick}
       {...props}
     >
       {label}

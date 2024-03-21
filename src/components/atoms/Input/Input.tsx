@@ -21,15 +21,15 @@ export const InputField: React.FC<InputFieldProps> = ({
   };
 
   return (
-    <div className="container-search">
+    <div className="search-container">
       <input
-        className="input"
+        className="search-input"
         type={type}
         value={value}
         onChange={onChange}
         onKeyDown={handleKeyDown}
       />
-      <IoSearchOutline onClick={onSearch} className="input-icon" />
+      <IoSearchOutline onClick={onSearch} className="search-icon" />
     </div>
   );
 };

@@ -20,15 +20,19 @@ export const FruitList: React.FC = () => {
 
   useEffect(() => {
     fetchFruits();
-  }, [fetchFruits]);
+  }, []);
 
   const handleSearch = () => {
     filterFruits(selectedFilter, selectedValue);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(e.target.value);
+  };
+
   return (
-    <div className="">
-      <div className="d-flex gap-3 mb-2">
+    <div className="fruit-list-container">
+      <div className="buttons-container">
         <Select
           value={selectedFilter}
           options={[
@@ -55,10 +59,10 @@ export const FruitList: React.FC = () => {
         <InputField
           type="text"
           value={selectedValue}
-          onChange={(e) => setSelectedValue(e.target.value)}
+          onChange={handleInputChange}
           onSearch={handleSearch}
         />
-        <Button label="Order A-Z" onClick={sortFruits} />
+        <Button primary size="small" label="Order A-Z" onClick={sortFruits} />
       </div>
 
       <div className="fruit-cards-container">
@@ -75,7 +79,9 @@ export const FruitList: React.FC = () => {
           />
         ))}
       </div>
-      <Button label="Ver Mas" onClick={handleSeeMore} />
+      <div className="fruit-list-button">
+        <Button label="Ver Mas" onClick={handleSeeMore} />
+      </div>
     </div>
   );
 };

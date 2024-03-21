@@ -1,21 +1,29 @@
+$border-radius: 1.5rem;
+$gap: 0.8rem;
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .fruit-card {
-  width: 317px;
-  border-radius: 0 0 15px 15px;
-  box-shadow: 5px 7px 25px 0px #00000026;
+  max-width: 19.8125rem;
+  border-radius: 0 0 $border-radius $border-radius;
+  box-shadow: 0.3125rem 0.4375rem 1.5625rem 0px #00000026;
 }
 
 .card-image {
   width: 100%;
-  height: 235px;
-  border-radius: 15px 15px 0px 0px;
+  height: 14.6875rem;
+  border-radius: $border-radius $border-radius 0px 0px;
   opacity: 0px;
 }
 
 .fruit-body {
   width: 100%;
-  padding: 24px;
-  gap: 8px;
-  border-radius: 0px 0px 15px 15px;
+  padding: 1.5rem;
+  gap: $gap;
+  border-radius: 0px 0px $border-radius $border-radius;
   opacity: 0px;
 }
 
@@ -25,16 +33,14 @@
   justify-content: space-between;
 
   > div {
-    display: flex;
-    flex-direction: column;
-    height: 56px;
+    @include flex-column;
+    height: 3.5rem;
   }
 }
 
 .fruit-nutritions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  @include flex-column;
+  gap: $gap;
   > div {
     display: flex;
     justify-content: space-between;

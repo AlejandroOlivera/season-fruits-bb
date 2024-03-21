@@ -27,7 +27,7 @@ export const Select: React.FC<SelectProps> = ({
 
   return (
     <select
-      className="form-select select-container"
+      className="select__container"
       value={value}
       onChange={handleSelectChange}
       disabled={disabled}

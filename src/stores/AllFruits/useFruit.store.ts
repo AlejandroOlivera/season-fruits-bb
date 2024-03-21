@@ -23,9 +23,10 @@ interface Actions {
 export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
   fruits: [],
   page: 1,
-  perPage: 8,
+  perPage: 4,
   displayedFruits: [],
   isSortedAscending: true,
+
   fetchFruits: async () => {
     try {
       const fruits = await fetchAllFruits();
@@ -69,11 +70,13 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
 
   handleSeeMore: () => {
     const { fruits, page, perPage, displayedFruits } = get();
-    if (fruits.length === displayedFruits.length) return;
-    const newPerPage = perPage === 8 ? 4 : perPage;
-    const newPage = page + 1;
-    const newFruits = fruits.slice(0, newPage * newPerPage);
-    set({ page: newPage, perPage: newPerPage, displayedFruits: newFruits });
+
+    if (fruits.length > displayedFruits.length) {
+      const newPerPage = perPage;
+      const newPage = page + 1;
+      const newFruits = fruits.slice(0, newPage * newPerPage);
+      set({ page: newPage, perPage: newPerPage, displayedFruits: newFruits });
+    }
   },
 
   sortFruits: () => {

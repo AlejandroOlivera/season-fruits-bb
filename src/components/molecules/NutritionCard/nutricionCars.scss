@@ -1,10 +1,30 @@
-.nutricionCardContainer {
-  width: 357px;
-  height: 368px;
-
+.nutricion-card {
+  max-width: 357px;
+  max-height: 368px;
   padding: 32px 45px 32px 24px;
-  gap: 16px;
   border-radius: 15px 0px 0px 15px;
-  opacity: 0px;
   background: #f9f9f9;
+
+  &__header {
+    margin-bottom: 10px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 576px) {
+    padding: 10px 25px 12px 14px;
+  }
+}
+
+.nutricion-card__item {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
 }
