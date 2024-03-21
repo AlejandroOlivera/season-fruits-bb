@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FruitCard } from './FruitCard';
+import './fruitCard.scss';
+
 const meta = {
   title: 'molecules/FruitCard',
   component: FruitCard,

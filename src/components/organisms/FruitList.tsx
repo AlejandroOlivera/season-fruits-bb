@@ -1,25 +1,68 @@
 import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
-import { useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
 import { FruitCard } from '../molecules/FruitCard/FruitCard';
 import './fruitList.scss';
-import { Typography } from '../atoms';
+import { Button } from '../atoms';
+import { Select } from '../atoms/Select/Select';
+import { InputField } from '../atoms/Input/Input';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
-  const fruits = useFruitStore((state) => state.fruits);
+  const handleSeeMore = useFruitStore((state) => state.handleSeeMore);
+  const sortFruits = useFruitStore((state) => state.sortFruits);
+  const displayedFruits = useFruitStore((state) => state.displayedFruits);
+
+  const filterFruits = useFruitStore((state) => state.filterFruits);
+
+  const [selectedFilter, setSelectedFilter] = useState('');
+  const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
     fetchFruits();
   }, [fetchFruits]);
 
-  return (
-    <>
-      <Typography text="Season fruits" size="extra-large" fontWeight={700} />
+  const handleSearch = () => {
+    filterFruits(selectedFilter, selectedValue);
+  };
 
-      <Typography text="the most wonderful fruits" size="medium" />
+  return (
+    <div className="">
+      <div className="d-flex gap-3 mb-2">
+        <Select
+          value={selectedFilter}
+          options={[
+            {
+              label: 'Filter by: ',
+              value: '',
+            },
+            {
+              label: 'Family',
+              value: 'family',
+            },
+            {
+              label: 'Order',
+              value: 'order',
+            },
+
+            {
+              label: 'Genus',
+              value: 'genus',
+            },
+          ]}
+          onChange={setSelectedFilter}
+        />
+        <InputField
+          type="text"
+          value={selectedValue}
+          onChange={(e) => setSelectedValue(e.target.value)}
+          onSearch={handleSearch}
+        />
+        <Button label="Order A-Z" onClick={sortFruits} />
+      </div>
 
       <div className="fruit-cards-container">
-        {fruits.map((fruit) => (
+        {displayedFruits.map((fruit) => (
           <FruitCard
             key={fruit.id}
             family={fruit.family}
@@ -32,6 +75,7 @@ export const FruitList: React.FC = () => {
           />
         ))}
       </div>
-    </>
+      <Button label="Ver Mas" onClick={handleSeeMore} />
+    </div>
   );
 };
