@@ -1,0 +1,24 @@
+.container-search {
+  position: relative;
+}
+
+.input {
+  background-color: #ffffff;
+  border: 1px solid #252525;
+  width: 165px;
+  height: 38px;
+  padding: 8px 25px 8px 25px;
+  gap: 10px;
+  border-radius: 100px;
+  border: 1px 0px 0px 0px;
+  opacity: 0px;
+  color: #252525;
+}
+
+.input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

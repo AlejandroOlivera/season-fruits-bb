@@ -4,22 +4,28 @@ import { assignImageToFruit } from '@/utils/assignImageToFruit';
 
 import { create } from 'zustand';
 
-interface FruitStore {
+interface FruitState {
   fruits: Fruit[];
   page: number;
   perPage: number;
   displayedFruits: Fruit[];
+  isSortedAscending: boolean;
+}
+
+interface Actions {
   fetchFruits: () => Promise<void>;
   getNutritionSum: () => Nutritions & { totalItems: number };
   handleSeeMore: () => void;
   sortFruits: () => void;
+  filterFruits: (filter: string, value: string) => void;
 }
 
-export const useFruitStore = create<FruitStore>()((set, get) => ({
+export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
   fruits: [],
   page: 1,
   perPage: 8,
   displayedFruits: [],
+  isSortedAscending: true,
   fetchFruits: async () => {
     try {
       const fruits = await fetchAllFruits();
@@ -35,6 +41,7 @@ export const useFruitStore = create<FruitStore>()((set, get) => ({
 
   getNutritionSum: () => {
     const { displayedFruits } = get();
+
     return {
       calories: displayedFruits.reduce(
         (sum, fruit) => sum + fruit.nutritions.calories,
@@ -61,16 +68,33 @@ export const useFruitStore = create<FruitStore>()((set, get) => ({
   },
 
   handleSeeMore: () => {
-    const { fruits, page, displayedFruits } = get();
+    const { fruits, page, perPage, displayedFruits } = get();
     if (fruits.length === displayedFruits.length) return;
-    set({ perPage: 4, page: page + 1 });
+    const newPerPage = perPage === 8 ? 4 : perPage;
+    const newPage = page + 1;
+    const newFruits = fruits.slice(0, newPage * newPerPage);
+    set({ page: newPage, perPage: newPerPage, displayedFruits: newFruits });
   },
 
   sortFruits: () => {
-    const { displayedFruits } = get();
+    const { displayedFruits, isSortedAscending } = get();
+
     const sortedFruits = [...displayedFruits].sort((a, b) =>
-      a.name.localeCompare(b.name),
+      isSortedAscending
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name),
     );
-    set({ displayedFruits: sortedFruits });
+    set({
+      displayedFruits: sortedFruits,
+      isSortedAscending: !isSortedAscending,
+    });
+  },
+
+  filterFruits: (filter, value) => {
+    const { displayedFruits } = get();
+    const filteredFruits = displayedFruits.filter((fruit) => {
+      return fruit[filter as keyof Fruit] === value;
+    });
+    set({ displayedFruits: filteredFruits });
   },
 }));

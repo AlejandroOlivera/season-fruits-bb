@@ -9,7 +9,6 @@ interface Option {
 interface SelectProps {
   options: Option[];
   onChange: (value: string) => void;
-  defaultValue?: string;
   value: string;
   disabled?: boolean;
 }
@@ -17,7 +16,6 @@ interface SelectProps {
 export const Select: React.FC<SelectProps> = ({
   options,
   onChange,
-
   value,
   disabled,
 }) => {

@@ -5,6 +5,7 @@ import { FruitCard } from '../molecules/FruitCard/FruitCard';
 import './fruitList.scss';
 import { Button } from '../atoms';
 import { Select } from '../atoms/Select/Select';
+import { InputField } from '../atoms/Input/Input';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
@@ -12,34 +13,50 @@ export const FruitList: React.FC = () => {
   const sortFruits = useFruitStore((state) => state.sortFruits);
   const displayedFruits = useFruitStore((state) => state.displayedFruits);
 
+  const filterFruits = useFruitStore((state) => state.filterFruits);
+
+  const [selectedFilter, setSelectedFilter] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
     fetchFruits();
   }, [fetchFruits]);
 
+  const handleSearch = () => {
+    filterFruits(selectedFilter, selectedValue);
+  };
+
   return (
     <div className="">
       <div className="d-flex gap-3 mb-2">
         <Select
-          value={selectedValue}
-          defaultValue=""
+          value={selectedFilter}
           options={[
             {
+              label: 'Filter by: ',
+              value: '',
+            },
+            {
               label: 'Family',
-              value: 'Family',
+              value: 'family',
             },
             {
               label: 'Order',
-              value: 'Order',
+              value: 'order',
             },
 
             {
               label: 'Genus',
-              value: 'Genus',
+              value: 'genus',
             },
           ]}
-          onChange={setSelectedValue}
+          onChange={setSelectedFilter}
+        />
+        <InputField
+          type="text"
+          value={selectedValue}
+          onChange={(e) => setSelectedValue(e.target.value)}
+          onSearch={handleSearch}
         />
         <Button label="Order A-Z" onClick={sortFruits} />
       </div>

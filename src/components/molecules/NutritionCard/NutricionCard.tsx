@@ -4,7 +4,6 @@ import { Typography } from '@/components/atoms';
 
 export const NutricionCard: React.FC = () => {
   const generalInformation = useFruitStore((state) => state.getNutritionSum());
-  const fruits = useFruitStore((state) => state.fruits);
 
   return (
     <>
@@ -18,17 +17,17 @@ export const NutricionCard: React.FC = () => {
 
         <div className="d-flex">
           <Typography
-            text="No. of Found Products:"
+            text="No. of Found Products: "
             color="#2C2C2C"
             size="medium"
             fontWeight={700}
           />
 
           <Typography
-            text={fruits.length}
+            text={generalInformation.totalItems}
             color="#2C2C2C"
             size="medium"
-            fontWeight={700}
+            fontWeight={400}
           />
         </div>
         <Typography
@@ -40,7 +39,7 @@ export const NutricionCard: React.FC = () => {
         <div>
           <Typography
             text="Total calories"
-            color="#D7B46B"
+            color="#2C2C2C"
             size="medium"
             fontWeight={700}
           />
@@ -48,7 +47,7 @@ export const NutricionCard: React.FC = () => {
             text={generalInformation.calories}
             color="#2C2C2C"
             size="medium"
-            fontWeight={700}
+            fontWeight={400}
           />
         </div>
 
@@ -63,14 +62,14 @@ export const NutricionCard: React.FC = () => {
             text={generalInformation.fat}
             color="#2C2C2C"
             size="medium"
-            fontWeight={700}
+            fontWeight={400}
           />
         </div>
 
         <div>
           <Typography
             text="Total sugar"
-            color="#D7B46B"
+            color="#2C2C2C"
             size="medium"
             fontWeight={700}
           />
@@ -78,15 +77,14 @@ export const NutricionCard: React.FC = () => {
             text={generalInformation.sugar}
             color="#2C2C2C"
             size="medium"
-            fontWeight={700}
+            fontWeight={400}
           />
         </div>
 
         <div>
-          {' '}
           <Typography
             text="Total carbohydrates"
-            color="#D7B46B"
+            color="#2C2C2C"
             size="medium"
             fontWeight={700}
           />
@@ -94,13 +92,13 @@ export const NutricionCard: React.FC = () => {
             text={generalInformation.carbohydrates}
             color="#2C2C2C"
             size="medium"
-            fontWeight={700}
+            fontWeight={400}
           />
         </div>
         <div>
           <Typography
             text="Total proteins"
-            color="#D7B46B"
+            color="#2C2C2C"
             size="medium"
             fontWeight={700}
           />
@@ -108,7 +106,7 @@ export const NutricionCard: React.FC = () => {
             text={generalInformation.protein}
             color="#2C2C2C"
             size="medium"
-            fontWeight={700}
+            fontWeight={400}
           />
         </div>
       </div>
