@@ -1,25 +1,51 @@
 import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
-import { useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
 import { FruitCard } from '../molecules/FruitCard/FruitCard';
 import './fruitList.scss';
-import { Typography } from '../atoms';
+import { Button } from '../atoms';
+import { Select } from '../atoms/Select/Select';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
-  const fruits = useFruitStore((state) => state.fruits);
+  const handleSeeMore = useFruitStore((state) => state.handleSeeMore);
+  const sortFruits = useFruitStore((state) => state.sortFruits);
+  const displayedFruits = useFruitStore((state) => state.displayedFruits);
+
+  const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
     fetchFruits();
   }, [fetchFruits]);
 
   return (
-    <>
-      <Typography text="Season fruits" size="extra-large" fontWeight={700} />
+    <div className="">
+      <div className="d-flex gap-3 mb-2">
+        <Select
+          value={selectedValue}
+          defaultValue=""
+          options={[
+            {
+              label: 'Family',
+              value: 'Family',
+            },
+            {
+              label: 'Order',
+              value: 'Order',
+            },
 
-      <Typography text="the most wonderful fruits" size="medium" />
+            {
+              label: 'Genus',
+              value: 'Genus',
+            },
+          ]}
+          onChange={setSelectedValue}
+        />
+        <Button label="Order A-Z" onClick={sortFruits} />
+      </div>
 
       <div className="fruit-cards-container">
-        {fruits.map((fruit) => (
+        {displayedFruits.map((fruit) => (
           <FruitCard
             key={fruit.id}
             family={fruit.family}
@@ -32,6 +58,7 @@ export const FruitList: React.FC = () => {
           />
         ))}
       </div>
-    </>
+      <Button label="Ver Mas" onClick={handleSeeMore} />
+    </div>
   );
 };

@@ -1,6 +1,23 @@
 #root {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+}
+
+.season-fruit {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-nutrition {
+  display: flex;
+  gap: 32px;
+  flex-direction: row;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
 }
