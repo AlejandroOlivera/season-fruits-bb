@@ -14,7 +14,6 @@ export const FruitList: React.FC = () => {
   const page = useFruitStore((state) => state.page);
   const fruits = useFruitStore((state) => state.fruits);
   const perPage = useFruitStore((state) => state.perPage);
-
   const filterFruits = useFruitStore((state) => state.filterFruits);
 
   const [selectedFilter, setSelectedFilter] = useState('');
@@ -64,7 +63,7 @@ export const FruitList: React.FC = () => {
           onChange={handleInputChange}
           onSearch={handleSearch}
         />
-        <Button primary size="small" label="Order A-Z" onClick={sortFruits} />
+        <Button primary size="medium" label="Order A-Z" onClick={sortFruits} />
       </div>
 
       <div className="fruit-cards-container">
@@ -85,7 +84,7 @@ export const FruitList: React.FC = () => {
 
       {page < Math.ceil(fruits.length / perPage) && (
         <div className="fruit-list-button">
-          <Button label="Ver Mas" onClick={handleSeeMore} />
+          <Button label="See more" onClick={handleSeeMore} />
         </div>
       )}
     </div>

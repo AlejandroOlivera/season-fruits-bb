@@ -29,5 +29,6 @@ export const FirstFruitCard: Story = {
       protein: 0.3,
     },
     image: '/Apple.webp',
+    isLiked: true,
   },
 };

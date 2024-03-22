@@ -62,19 +62,19 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
         0,
       ),
       fat: displayedFruits.reduce(
-        (sum, fruit) => sum + fruit.nutritions.fat,
+        (sum, fruit) => sum + Math.round(fruit.nutritions.fat),
         0,
       ),
       sugar: displayedFruits.reduce(
-        (sum, fruit) => sum + fruit.nutritions.sugar,
+        (sum, fruit) => sum + Math.round(fruit.nutritions.sugar),
         0,
       ),
       carbohydrates: displayedFruits.reduce(
-        (sum, fruit) => sum + fruit.nutritions.carbohydrates,
+        (sum, fruit) => sum + Math.round(fruit.nutritions.carbohydrates),
         0,
       ),
       protein: displayedFruits.reduce(
-        (sum, fruit) => sum + fruit.nutritions.protein,
+        (sum, fruit) => sum + Math.round(fruit.nutritions.protein),
         0,
       ),
       totalItems: displayedFruits.length,
@@ -110,10 +110,23 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
 
   filterFruits: (filter, value) => {
     const { displayedFruits } = get();
+
+    if (!filter || !value) {
+      return set({ displayedFruits });
+    }
+
     const filteredFruits = displayedFruits.filter((fruit) => {
-      return fruit[filter as keyof Fruit] === value;
+      return (
+        String(fruit[filter as keyof Fruit]).toLowerCase() ===
+        value.toLowerCase()
+      );
     });
-    set({ displayedFruits: filteredFruits });
+
+    if (filteredFruits.length === 0) {
+      return set({ displayedFruits });
+    }
+
+    set({ displayedFruits: filteredFruits || displayedFruits });
   },
 
   toggleLikeFruit: (fruitName) => {
