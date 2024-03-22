@@ -1,30 +1,64 @@
-# React + TypeScript + Vite
+# Proyecto de Frutas de Temporada
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
+Este proyecto es una aplicación que muestra las frutas de temporada.
 
-Currently, two official plugins are available:
+## Tecnologías Utilizadas
+- TypeScript
+- SCSS
+- React
+- Vite
+- Zustand
+- Bootstrap
+- Storybook
+- Axios
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Requisitos
+- Node.js v20.11.1
+- pnpm v8.15.5
 
-## Expanding the ESLint configuration
+## Problemas de CORS
+Durante el desarrollo de este proyecto, se encontraron problemas de CORS al hacer peticiones a la API. Para solucionar esto, se utilizó un proxy CORS. Debes agregar la siguiente línea a tu archivo `.env` :
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+VITE_APP_BASE_URL=https://cors-anywhere.herokuapp.com/https://www.fruityvice.com/api
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Además, se realizan solicitudes a `https://cors-anywhere.herokuapp.com/corsdemo`. Asegúrate de tener los permisos necesarios para hacer solicitudes a esta URL.
+
+
+
+## Instalación
+Para instalar las dependencias del proyecto, sigue estos pasos:
+
+1. Clona el repositorio:
+
+```
+git clone https://github.com/AlejandroOlivera/season-fruits-bb.git
+```
+
+2. Navega al directorio del proyecto:
+
+```
+cd season-fruits-bb
+```
+
+3. Instala las dependencias con pnpm:
+
+```
+pnpm install
+```
+
+## Uso
+Para iniciar la aplicación, ejecuta:
+
+```
+pnpm start
+```
+
+
+## Contribuir
+Las contribuciones son bienvenidas. Por favor, abre un issue o realiza un pull request.
+
+## Licencia
+MIT
