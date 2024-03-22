@@ -1,0 +1,51 @@
+.fruit-list-container {
+  display: flex;
+  flex-direction: column;
+
+  > .buttons-container {
+    display: flex;
+    margin-bottom: 24px;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+
+    @media (max-width: 576px) {
+      flex-direction: column;
+    }
+  }
+}
+
+.fruit-cards-container {
+  width: 1011px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: baseline;
+  gap: 24px;
+
+  > .fruit-card {
+    width: 100%;
+    max-width: calc(33.33% - 20px); /* Cambiado de 25% a calc(33.33% - 20px) */
+
+    @media (max-width: 992px) {
+      max-width: calc(50% - 20px); /* Ajuste para dispositivos más pequeños */
+    }
+
+    @media (max-width: 576px) {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+}
+
+.fruit-list-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

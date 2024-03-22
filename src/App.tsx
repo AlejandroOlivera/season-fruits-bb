@@ -2,7 +2,7 @@ import './App.css';
 
 import { Typography } from './components/atoms';
 import { NutricionCard } from './components/molecules/NutritionCard/NutricionCard';
-import { FruitList } from './components/organisms/FruitList';
+import { FruitList } from './components/organisms/FruitList/FruitList';
 
 function App() {
   return (

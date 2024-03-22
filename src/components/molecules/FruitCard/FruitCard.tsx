@@ -1,14 +1,28 @@
 import { Fruit } from '@/interface/Fruit.interface';
+import { useFruitStore } from '@/stores';
+
 import './fruitCard.scss';
-import { Typography } from '@/components/atoms/Typography/Typography';
+
 import React from 'react';
+import { ToggleLike, Typography } from '@/components/atoms';
 
 export const FruitCard: React.FC<Fruit> = React.memo(
-  ({ name, family, order, genus, nutritions, image }) => {
+  ({ name, family, order, genus, nutritions, image, isLiked }) => {
+    const toggleLikeFruit = useFruitStore((state) => state.toggleLikeFruit);
+
     return (
       <>
         <div className="fruit-card">
-          <img className="card-image" src={image} alt={image} />
+          <div className="card-image-container">
+            <img className="card-container__image" src={image} alt={image} />
+
+            <div className="card-container__icon">
+              <ToggleLike
+                isLiked={isLiked}
+                onToggle={() => toggleLikeFruit(name)}
+              />
+            </div>
+          </div>
           <div className="fruit-body">
             <Typography
               text={name}

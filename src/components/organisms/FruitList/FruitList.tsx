@@ -1,17 +1,19 @@
-import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
-
 import { useEffect, useState } from 'react';
-import { FruitCard } from '../molecules/FruitCard/FruitCard';
+import { useFruitStore } from '@/stores';
+
+import { Button, InputField, Select } from '@/components/atoms';
+import { FruitCard } from '@/components/molecules';
+
 import './fruitList.scss';
-import { Button } from '../atoms';
-import { Select } from '../atoms/Select/Select';
-import { InputField } from '../atoms/Input/Input';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
   const handleSeeMore = useFruitStore((state) => state.handleSeeMore);
   const sortFruits = useFruitStore((state) => state.sortFruits);
   const displayedFruits = useFruitStore((state) => state.displayedFruits);
+  const page = useFruitStore((state) => state.page);
+  const fruits = useFruitStore((state) => state.fruits);
+  const perPage = useFruitStore((state) => state.perPage);
 
   const filterFruits = useFruitStore((state) => state.filterFruits);
 
@@ -20,15 +22,19 @@ export const FruitList: React.FC = () => {
 
   useEffect(() => {
     fetchFruits();
-  }, [fetchFruits]);
+  }, []);
 
   const handleSearch = () => {
     filterFruits(selectedFilter, selectedValue);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(e.target.value);
+  };
+
   return (
-    <div className="">
-      <div className="d-flex gap-3 mb-2">
+    <div className="fruit-list-container">
+      <div className="buttons-container">
         <Select
           value={selectedFilter}
           options={[
@@ -55,15 +61,16 @@ export const FruitList: React.FC = () => {
         <InputField
           type="text"
           value={selectedValue}
-          onChange={(e) => setSelectedValue(e.target.value)}
+          onChange={handleInputChange}
           onSearch={handleSearch}
         />
-        <Button label="Order A-Z" onClick={sortFruits} />
+        <Button primary size="small" label="Order A-Z" onClick={sortFruits} />
       </div>
 
       <div className="fruit-cards-container">
         {displayedFruits.map((fruit) => (
           <FruitCard
+            isLiked={fruit.isLiked}
             key={fruit.id}
             family={fruit.family}
             genus={fruit.genus}
@@ -75,7 +82,12 @@ export const FruitList: React.FC = () => {
           />
         ))}
       </div>
-      <Button label="Ver Mas" onClick={handleSeeMore} />
+
+      {page < Math.ceil(fruits.length / perPage) && (
+        <div className="fruit-list-button">
+          <Button label="Ver Mas" onClick={handleSeeMore} />
+        </div>
+      )}
     </div>
   );
 };
