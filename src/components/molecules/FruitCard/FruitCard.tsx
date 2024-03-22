@@ -1,9 +1,10 @@
 import { Fruit } from '@/interface/Fruit.interface';
+import { useFruitStore } from '@/stores';
+
 import './fruitCard.scss';
-import { Typography } from '@/components/atoms/Typography/Typography';
+
 import React from 'react';
-import { ToggleLike } from '@/components/atoms/ToogleLike/ToogleLike';
-import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
+import { ToggleLike, Typography } from '@/components/atoms';
 
 export const FruitCard: React.FC<Fruit> = React.memo(
   ({ name, family, order, genus, nutritions, image, isLiked }) => {

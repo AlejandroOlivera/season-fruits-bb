@@ -1,11 +1,10 @@
-import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
-
 import { useEffect, useState } from 'react';
-import { FruitCard } from '../molecules/FruitCard/FruitCard';
+import { useFruitStore } from '@/stores';
+
+import { Button, InputField, Select } from '@/components/atoms';
+import { FruitCard } from '@/components/molecules';
+
 import './fruitList.scss';
-import { Button } from '../atoms';
-import { Select } from '../atoms/Select/Select';
-import { InputField } from '../atoms/Input/Input';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
