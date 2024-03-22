@@ -1,17 +1,19 @@
-import { useFruitStore } from '@/stores/AllFruits/useFruit.store';
-
 import { useEffect, useState } from 'react';
-import { FruitCard } from '../molecules/FruitCard/FruitCard';
+import { useFruitStore } from '@/stores';
+
+import { Button, InputField, Select } from '@/components/atoms';
+import { FruitCard } from '@/components/molecules';
+
 import './fruitList.scss';
-import { Button } from '../atoms';
-import { Select } from '../atoms/Select/Select';
-import { InputField } from '../atoms/Input/Input';
 
 export const FruitList: React.FC = () => {
   const fetchFruits = useFruitStore((state) => state.fetchFruits);
   const handleSeeMore = useFruitStore((state) => state.handleSeeMore);
   const sortFruits = useFruitStore((state) => state.sortFruits);
   const displayedFruits = useFruitStore((state) => state.displayedFruits);
+  const page = useFruitStore((state) => state.page);
+  const fruits = useFruitStore((state) => state.fruits);
+  const perPage = useFruitStore((state) => state.perPage);
 
   const filterFruits = useFruitStore((state) => state.filterFruits);
 
@@ -68,6 +70,7 @@ export const FruitList: React.FC = () => {
       <div className="fruit-cards-container">
         {displayedFruits.map((fruit) => (
           <FruitCard
+            isLiked={fruit.isLiked}
             key={fruit.id}
             family={fruit.family}
             genus={fruit.genus}
@@ -79,9 +82,12 @@ export const FruitList: React.FC = () => {
           />
         ))}
       </div>
-      <div className="fruit-list-button">
-        <Button label="Ver Mas" onClick={handleSeeMore} />
-      </div>
+
+      {page < Math.ceil(fruits.length / perPage) && (
+        <div className="fruit-list-button">
+          <Button label="Ver Mas" onClick={handleSeeMore} />
+        </div>
+      )}
     </div>
   );
 };

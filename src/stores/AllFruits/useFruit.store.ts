@@ -10,6 +10,7 @@ interface FruitState {
   perPage: number;
   displayedFruits: Fruit[];
   isSortedAscending: boolean;
+  likedFruits: string[];
 }
 
 interface Actions {
@@ -18,22 +19,34 @@ interface Actions {
   handleSeeMore: () => void;
   sortFruits: () => void;
   filterFruits: (filter: string, value: string) => void;
+  toggleLikeFruit: (fruitName: string) => void;
 }
 
 export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
   fruits: [],
-  page: 1,
+  page: 2,
   perPage: 4,
   displayedFruits: [],
   isSortedAscending: true,
+  likedFruits: JSON.parse(localStorage.getItem('likedFruits') || '[]'),
 
   fetchFruits: async () => {
+    const { likedFruits } = get();
+
     try {
       const fruits = await fetchAllFruits();
-      const fruitsWithImages = fruits.map(assignImageToFruit);
+
+      const likedFruitsSet = new Set(likedFruits);
+
+      const fruitsWithImagesAndLikes = fruits.map((fruit: Fruit) => ({
+        ...fruit,
+        image: assignImageToFruit(fruit.name),
+        isLiked: likedFruitsSet.has(fruit.name),
+      }));
+
       set({
-        fruits: fruitsWithImages,
-        displayedFruits: fruitsWithImages.slice(0, 8),
+        fruits: fruitsWithImagesAndLikes,
+        displayedFruits: fruitsWithImagesAndLikes.slice(0, 8),
       });
     } catch (error) {
       console.log(error);
@@ -72,10 +85,12 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
     const { fruits, page, perPage, displayedFruits } = get();
 
     if (fruits.length > displayedFruits.length) {
-      const newPerPage = perPage;
-      const newPage = page + 1;
-      const newFruits = fruits.slice(0, newPage * newPerPage);
-      set({ page: newPage, perPage: newPerPage, displayedFruits: newFruits });
+      const newPage = Math.min(page + 1, Math.ceil(fruits.length / perPage));
+      const newDisplayedFruits = [
+        ...displayedFruits,
+        ...fruits.slice((newPage - 1) * perPage, newPage * perPage),
+      ];
+      set({ page: newPage, displayedFruits: newDisplayedFruits });
     }
   },
 
@@ -99,5 +114,33 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
       return fruit[filter as keyof Fruit] === value;
     });
     set({ displayedFruits: filteredFruits });
+  },
+
+  toggleLikeFruit: (fruitName) => {
+    const { likedFruits, fruits, displayedFruits } = get();
+
+    const isLiked = likedFruits.includes(fruitName);
+    console.log('🚀 ~ useFruitStore ~ isLiked:', isLiked);
+
+    const newLikedFruits = isLiked
+      ? likedFruits.filter((fruit) => fruit !== fruitName)
+      : [...likedFruits, fruitName];
+    localStorage.setItem('likedFruits', JSON.stringify(newLikedFruits));
+
+    const updatedFruits = fruits.map((fruit) => ({
+      ...fruit,
+      isLiked: newLikedFruits.includes(fruit.name),
+    }));
+
+    const updatedDisplayedFruits = displayedFruits.map((fruit) => ({
+      ...fruit,
+      isLiked: newLikedFruits.includes(fruit.name),
+    }));
+
+    set({
+      likedFruits: newLikedFruits,
+      fruits: updatedFruits,
+      displayedFruits: updatedDisplayedFruits,
+    });
   },
 }));
