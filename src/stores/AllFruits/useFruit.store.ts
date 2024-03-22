@@ -24,7 +24,7 @@ interface Actions {
 
 export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
   fruits: [],
-  page: 1,
+  page: 2,
   perPage: 4,
   displayedFruits: [],
   isSortedAscending: true,
@@ -36,10 +36,12 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
     try {
       const fruits = await fetchAllFruits();
 
+      const likedFruitsSet = new Set(likedFruits);
+
       const fruitsWithImagesAndLikes = fruits.map((fruit: Fruit) => ({
         ...fruit,
         image: assignImageToFruit(fruit.name),
-        isLiked: likedFruits.includes(fruit.name),
+        isLiked: likedFruitsSet.has(fruit.name),
       }));
 
       set({
@@ -83,10 +85,12 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
     const { fruits, page, perPage, displayedFruits } = get();
 
     if (fruits.length > displayedFruits.length) {
-      const newPerPage = perPage;
-      const newPage = page + 1;
-      const newFruits = fruits.slice(0, newPage * newPerPage);
-      set({ page: newPage, perPage: newPerPage, displayedFruits: newFruits });
+      const newPage = Math.min(page + 1, Math.ceil(fruits.length / perPage));
+      const newDisplayedFruits = [
+        ...displayedFruits,
+        ...fruits.slice((newPage - 1) * perPage, newPage * perPage),
+      ];
+      set({ page: newPage, displayedFruits: newDisplayedFruits });
     }
   },
 

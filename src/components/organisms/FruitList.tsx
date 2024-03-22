@@ -12,6 +12,9 @@ export const FruitList: React.FC = () => {
   const handleSeeMore = useFruitStore((state) => state.handleSeeMore);
   const sortFruits = useFruitStore((state) => state.sortFruits);
   const displayedFruits = useFruitStore((state) => state.displayedFruits);
+  const page = useFruitStore((state) => state.page);
+  const fruits = useFruitStore((state) => state.fruits);
+  const perPage = useFruitStore((state) => state.perPage);
 
   const filterFruits = useFruitStore((state) => state.filterFruits);
 
@@ -80,9 +83,12 @@ export const FruitList: React.FC = () => {
           />
         ))}
       </div>
-      <div className="fruit-list-button">
-        <Button label="Ver Mas" onClick={handleSeeMore} />
-      </div>
+
+      {page < Math.ceil(fruits.length / perPage) && (
+        <div className="fruit-list-button">
+          <Button label="Ver Mas" onClick={handleSeeMore} />
+        </div>
+      )}
     </div>
   );
 };
