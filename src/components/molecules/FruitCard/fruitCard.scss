@@ -12,11 +12,21 @@ $gap: 0.8rem;
   box-shadow: 0.3125rem 0.4375rem 1.5625rem 0px #00000026;
 }
 
-.card-image {
+.card-image-container {
+  position: relative;
+}
+
+.card-container__image {
   width: 100%;
   height: 14.6875rem;
   border-radius: $border-radius $border-radius 0px 0px;
   opacity: 0px;
+}
+
+.card-container__icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .fruit-body {

@@ -68,6 +68,7 @@ export const FruitList: React.FC = () => {
       <div className="fruit-cards-container">
         {displayedFruits.map((fruit) => (
           <FruitCard
+            isLiked={fruit.isLiked}
             key={fruit.id}
             family={fruit.family}
             genus={fruit.genus}

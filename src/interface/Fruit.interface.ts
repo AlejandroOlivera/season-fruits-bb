@@ -6,6 +6,7 @@ export interface Fruit {
   genus: string;
   nutritions: Nutritions;
   image?: string;
+  isLiked?: boolean;
 }
 
 export interface Nutritions {

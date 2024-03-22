@@ -1,0 +1,18 @@
+.toggle-like {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-like .react-icons__fa-heart {
+  color: transparent;
+}
+
+.toggle-like.liked .react-icons__fa-heart {
+  color: yellow;
+}

@@ -10,6 +10,7 @@ interface FruitState {
   perPage: number;
   displayedFruits: Fruit[];
   isSortedAscending: boolean;
+  likedFruits: string[];
 }
 
 interface Actions {
@@ -18,6 +19,7 @@ interface Actions {
   handleSeeMore: () => void;
   sortFruits: () => void;
   filterFruits: (filter: string, value: string) => void;
+  toggleLikeFruit: (fruitName: string) => void;
 }
 
 export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
@@ -26,14 +28,23 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
   perPage: 4,
   displayedFruits: [],
   isSortedAscending: true,
+  likedFruits: JSON.parse(localStorage.getItem('likedFruits') || '[]'),
 
   fetchFruits: async () => {
+    const { likedFruits } = get();
+
     try {
       const fruits = await fetchAllFruits();
-      const fruitsWithImages = fruits.map(assignImageToFruit);
+
+      const fruitsWithImagesAndLikes = fruits.map((fruit: Fruit) => ({
+        ...fruit,
+        image: assignImageToFruit(fruit.name),
+        isLiked: likedFruits.includes(fruit.name),
+      }));
+
       set({
-        fruits: fruitsWithImages,
-        displayedFruits: fruitsWithImages.slice(0, 8),
+        fruits: fruitsWithImagesAndLikes,
+        displayedFruits: fruitsWithImagesAndLikes.slice(0, 8),
       });
     } catch (error) {
       console.log(error);
@@ -99,5 +110,33 @@ export const useFruitStore = create<FruitState & Actions>()((set, get) => ({
       return fruit[filter as keyof Fruit] === value;
     });
     set({ displayedFruits: filteredFruits });
+  },
+
+  toggleLikeFruit: (fruitName) => {
+    const { likedFruits, fruits, displayedFruits } = get();
+
+    const isLiked = likedFruits.includes(fruitName);
+    console.log('🚀 ~ useFruitStore ~ isLiked:', isLiked);
+
+    const newLikedFruits = isLiked
+      ? likedFruits.filter((fruit) => fruit !== fruitName)
+      : [...likedFruits, fruitName];
+    localStorage.setItem('likedFruits', JSON.stringify(newLikedFruits));
+
+    const updatedFruits = fruits.map((fruit) => ({
+      ...fruit,
+      isLiked: newLikedFruits.includes(fruit.name),
+    }));
+
+    const updatedDisplayedFruits = displayedFruits.map((fruit) => ({
+      ...fruit,
+      isLiked: newLikedFruits.includes(fruit.name),
+    }));
+
+    set({
+      likedFruits: newLikedFruits,
+      fruits: updatedFruits,
+      displayedFruits: updatedDisplayedFruits,
+    });
   },
 }));
