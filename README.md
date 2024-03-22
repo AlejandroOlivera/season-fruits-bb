@@ -26,7 +26,8 @@ VITE_APP_BASE_URL=https://cors-anywhere.herokuapp.com/https://www.fruityvice.com
 
 Además, se realizan solicitudes a `https://cors-anywhere.herokuapp.com/corsdemo`. Asegúrate de tener los permisos necesarios para hacer solicitudes a esta URL.
 
-
+## Domain Vercel
+`https://season-fruits-bb.vercel.app/`
 
 ## Instalación
 Para instalar las dependencias del proyecto, sigue estos pasos:
@@ -53,7 +54,7 @@ pnpm install
 Para iniciar la aplicación, ejecuta:
 
 ```
-pnpm start
+pnpm run dev
 ```
 
 
